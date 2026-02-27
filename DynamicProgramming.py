@@ -125,6 +125,12 @@ def experiment():
     mean_reward_per_timestep = total_reward / total_steps
     print("Mean reward per timestep under optimal policy: {}".format(mean_reward_per_timestep))
 
+    # V*(s) = max over actions of Q*(s,a)
+    # start location is (0,3) which maps to state index 3
+    start_state = env._location_to_state(np.array([0, 3]))
+    V_star = np.max(QIagent.Q_sa[start_state])
+    print("V*(s=3) = {}".format(V_star))
+
 
 if __name__ == '__main__':
     experiment()

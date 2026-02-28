@@ -8,6 +8,8 @@ By Thomas Moerland
 import matplotlib
 matplotlib.use('Qt5Agg') # 'TkAgg'
 import numpy as np
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle,Circle,Arrow
 

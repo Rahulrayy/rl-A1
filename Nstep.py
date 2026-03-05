@@ -5,7 +5,6 @@ Practical for course 'Reinforcement Learning',
 Leiden University, The Netherlands
 By Thomas Moerland
 """
-from idlelib.multicall import r
 
 import numpy as np
 from Environment import StochasticWindyGridworld

@@ -71,7 +71,7 @@ def q_learning(n_timesteps, learning_rate, gamma, policy='egreedy', epsilon=None
             s = s_next
 
         if plot:
-          env.render(Q_sa=agent.Q_sa, plot_optimal_policy=True, step_pause=0.1)
+          env.render(Q_sa=agent.Q_sa, plot_optimal_policy=False, step_pause=0.1)
 
     return np.array(eval_returns), np.array(eval_timesteps)
 

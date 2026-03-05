@@ -96,6 +96,7 @@ def n_step_Q(n_timesteps, max_episode_length, learning_rate, gamma,
 
                 else: break  #clear the trajectory after 'done'
 
+    #done
     # if plot:
     #    env.render(Q_sa=pi.Q_sa,plot_optimal_policy=True,step_pause=0.1) # Plot the Q-value estimates during n-step Q-learning execution
         

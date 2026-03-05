@@ -66,7 +66,8 @@ def monte_carlo(n_timesteps, max_episode_length, learning_rate, gamma,
 
         # Update policy after the episode finishes
         pi.update(states, actions, rewards)
-    
+
+    # done
     # if plot:
     #    env.render(Q_sa=pi.Q_sa,plot_optimal_policy=True,step_pause=0.1) # Plot the Q-value estimates during Monte Carlo RL execution
 

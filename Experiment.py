@@ -130,5 +130,6 @@ def experiment():
     Plot.add_hline(optimal_episode_return, label="DP optimum")
     Plot.save('depth.png')
 
+
 if __name__ == '__main__':
     experiment()

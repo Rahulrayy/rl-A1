@@ -6,7 +6,6 @@ Leiden University, The Netherlands
 By Thomas Moerland
 """
 import matplotlib
-matplotlib.use('Qt5Agg') # 'TkAgg'
 import numpy as np
 import matplotlib
 matplotlib.use('TkAgg')

@@ -22,6 +22,7 @@ def average_over_repetitions(backup, n_repetitions, n_timesteps, max_episode_len
     now = time.time()
     
     for rep in range(n_repetitions): # Loop over repetitions
+        print(f"\r    Repetition {rep + 1}/{n_repetitions}", end="")
         if backup == 'q':
             returns, timesteps = q_learning(n_timesteps, learning_rate, gamma, policy, epsilon, temp, plot, eval_interval)
         elif backup == 'sarsa':
@@ -34,7 +35,7 @@ def average_over_repetitions(backup, n_repetitions, n_timesteps, max_episode_len
                    policy, epsilon, temp, plot, eval_interval)
 
         returns_over_repetitions.append(returns)
-        
+    print()
     print('Running one setting takes {} minutes'.format((time.time()-now)/60))
     learning_curve = np.mean(np.array(returns_over_repetitions),axis=0) # average over repetitions  
     if smoothing_window is not None: 
@@ -74,29 +75,33 @@ def experiment():
     
     #### Assignment 1: Dynamic Programming
     # Execute this assignment in DynamicProgramming.py
-    optimal_episode_return = 100 # set the optimal return per episode you found in the DP assignment here
+    optimal_episode_return = 83.67825468739042 # set the optimal return per episode you found in the DP assignment here
     
-    #### Assignment 2: Effect of exploration
+    #### Assignment 2: Effect of exploration  -- qlearning
+    print("\n--- Starting Assignment 2: Exploration Strategies ---")
     policy = 'egreedy'
     epsilons = [0.03,0.1,0.3]
     learning_rate = 0.1
     backup = 'q'
     Plot = LearningCurvePlot(title = 'Exploration: $\epsilon$-greedy versus softmax exploration')    
     Plot.set_ylim(-100, 100) 
-    for epsilon in epsilons:        
+    for epsilon in epsilons:
+        print(f"--- running: Policy={policy}, epsilon={epsilon} ---")
         learning_curve, timesteps = average_over_repetitions(backup, n_repetitions, n_timesteps, max_episode_length, learning_rate, 
                                               gamma, policy, epsilon, temp, smoothing_window, plot, n, eval_interval)
         Plot.add_curve(timesteps,learning_curve,label=r'$\epsilon$-greedy, $\epsilon $ = {}'.format(epsilon))    
     policy = 'softmax'
     temps = [0.01,0.1,1.0]
     for temp in temps:
+        print(f"--- running: Policy={policy}, temp={temp} ---")
         learning_curve, timesteps = average_over_repetitions(backup, n_repetitions, n_timesteps, max_episode_length, learning_rate, 
                                               gamma, policy, epsilon, temp, smoothing_window, plot, n, eval_interval)
         Plot.add_curve(timesteps,learning_curve,label=r'softmax, $ \tau $ = {}'.format(temp))
     Plot.add_hline(optimal_episode_return, label="DP optimum")
     Plot.save('exploration.png')
         
-    ###### Assignment 3: Q-learning versus SARSA
+    ###### Assignment 3: Q-learning versus SARSA  on-policy vs. offline policy
+    print("\n--- Starting Assignment 3: Q-learning vs SARSA ---")
     policy = 'egreedy'
     epsilon = 0.1 # set epsilon back to original value 
     learning_rates = [0.03,0.1,0.3]
@@ -105,13 +110,15 @@ def experiment():
     Plot.set_ylim(-100, 100) 
     for backup in backups:
         for learning_rate in learning_rates:
+            print(f"--- Running: Algorithm={backup_labels[backup]}, Alpha={learning_rate} ---")
             learning_curve, timesteps = average_over_repetitions(backup, n_repetitions, n_timesteps, max_episode_length, learning_rate, 
                                               gamma, policy, epsilon, temp, smoothing_window, plot, n, eval_interval)
             Plot.add_curve(timesteps,learning_curve,label=r'{}, $\alpha$ = {} '.format(backup_labels[backup],learning_rate))
     Plot.add_hline(optimal_episode_return, label="DP optimum")
     Plot.save('on_off_policy.png')
     
-    # ##### Assignment 4: Back-up depth
+    # ##### Assignment 4: Back-up depth  montecarlo vs. nstep
+    print("\n--- Starting Assignment 4: Back-up Depth ---")
     policy = 'egreedy'
     epsilon = 0.05 # set epsilon back to original value
     learning_rate = 0.1
@@ -120,10 +127,12 @@ def experiment():
     Plot = LearningCurvePlot(title = 'Back-up: depth')   
     Plot.set_ylim(-100, 100) 
     for n in ns:
+        print(f"--- Running: n-step Q, n={n} ---")
         learning_curve, timesteps = average_over_repetitions(backup, n_repetitions, n_timesteps, max_episode_length, learning_rate, 
                                               gamma, policy, epsilon, temp, smoothing_window, plot, n, eval_interval)
         Plot.add_curve(timesteps,learning_curve,label=r'{}-step Q-learning'.format(n))
     backup = 'mc'
+    print(f"--- Running: Monte Carlo ---")
     learning_curve, timesteps = average_over_repetitions(backup, n_repetitions, n_timesteps, max_episode_length, learning_rate, 
                                           gamma, policy, epsilon, temp, smoothing_window, plot, n, eval_interval)
     Plot.add_curve(timesteps,learning_curve,label='Monte Carlo')        

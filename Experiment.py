@@ -45,7 +45,7 @@ def experiment():
     ####### Settings
     # Experiment      
     n_repetitions = 20
-    smoothing_window = 9 # Must be an odd number. Use 'None' to switch smoothing off!
+    smoothing_window = 11 # Must be an odd number. Use 'None' to switch smoothing off!
     plot = False # Plotting is very slow, switch it off when we run repetitions
     
     # MDP    

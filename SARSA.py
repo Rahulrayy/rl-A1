@@ -98,7 +98,8 @@ def sarsa(n_timesteps, learning_rate, gamma, policy='egreedy', epsilon=None, tem
 def test():
     n_timesteps = 1000
     gamma = 1.0
-    learning_rate = 0.1
+    #learning_rate = 0.1
+    learning_rate = 0.01
 
     # Exploration
     policy = 'egreedy'  # 'egreedy' or 'softmax'

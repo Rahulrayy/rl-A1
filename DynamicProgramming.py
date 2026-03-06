@@ -81,7 +81,7 @@ def Q_value_iteration(env, gamma=1.0, threshold=0.001):
         print("Q-value iteration, iteration {}, max error {}".format(i, delta))
 
 
-        env.render(Q_sa=QIagent.Q_sa, plot_optimal_policy=True, step_pause=0.2)
+        env.render(Q_sa=QIagent.Q_sa, plot_optimal_policy=True, step_pause=0.8)
 
 
         if delta < threshold:

@@ -84,7 +84,7 @@ def save_final_plot(ts_ref, all_outer_runs, title, save_path):
     fig.tight_layout()
     fig.savefig(save_path, dpi=200)
     plt.close(fig)
-    print(f'   saved final: {save_path}')
+    print(f'   saved final {save_path}')
 
 
 def run(backup, lr, policy='egreedy', epsilon=0.1, temp=1.0, n=5):

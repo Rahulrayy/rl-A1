@@ -122,7 +122,7 @@ def experiment_exploration():
     ts_ref = None
 
     for run_idx in range(1, N_OUTER_RUNS + 1):
-        print(f'  [exploration] outer run {run_idx}/{N_OUTER_RUNS}')
+        print(f'  exploration outer run {run_idx}/{N_OUTER_RUNS}')
         run_dir = make_dir(base_dir, f'run_{run_idx}')
         curves = {}
         ts_list = []
@@ -163,7 +163,7 @@ def experiment_on_off():
     ts_ref = None
 
     for run_idx in range(1, N_OUTER_RUNS + 1):
-        print(f'  [on/off-policy] outer run {run_idx}/{N_OUTER_RUNS}')
+        print(f'  on/off-policy outer run {run_idx}/{N_OUTER_RUNS}')
         run_dir = make_dir(base_dir, f'run_{run_idx}')
         curves = {}
         ts_list = []
@@ -203,7 +203,7 @@ def experiment_depth():
     ts_ref = None
 
     for run_idx in range(1, N_OUTER_RUNS + 1):
-        print(f'  [depth] outer run {run_idx}/{N_OUTER_RUNS}')
+        print(f'  depth outer run {run_idx}/{N_OUTER_RUNS}')
         run_dir = make_dir(base_dir, f'run_{run_idx}')
         curves = {}
         ts_list = []

@@ -12,9 +12,21 @@ from Agent import BaseAgent
 
 class SarsaAgent(BaseAgent):
         
-    def update(self,s,a,r,s_next,a_next,done):
-        # TO DO: Add own code
-        pass
+    def update(self, s, a, r, s_next, a_next, done):
+        """
+        SARSA update: Q(s,a) <- Q(s,a) + alpha * (r + gamma * Q(s',a') - Q(s,a))
+        """
+        # Estimation of the current Q
+        current_q = self.Q_sa[s, a]
+        
+        # Calculate the target
+        if done:
+            target = r
+        else:
+            target = r + self.gamma * self.Q_sa[s_next, a_next]
+        
+        # Updates
+        self.Q_sa[s, a] = current_q + self.learning_rate * (target - current_q)
 
         
 def sarsa(n_timesteps, learning_rate, gamma, policy='egreedy', epsilon=None, temp=None, plot=True, eval_interval=500):
@@ -27,10 +39,37 @@ def sarsa(n_timesteps, learning_rate, gamma, policy='egreedy', epsilon=None, tem
     eval_timesteps = []
     eval_returns = []
 
-    # TO DO: Write your SARSA algorithm here!
+    s = env.reset()
+    a = pi.select_action(s, policy=policy, epsilon=epsilon, temp=temp)
     
-    # if plot:
-    #    env.render(Q_sa=pi.Q_sa,plot_optimal_policy=True,step_pause=0.1) # Plot the Q-value estimates during SARSA execution
+    for t in range(1, n_timesteps + 1):
+        s_next, r, done = env.step(a)
+        
+        # Choose the next step
+        if done:
+            a_next = None
+        else:
+            a_next = pi.select_action(s_next, policy=policy, epsilon=epsilon, temp=temp)
+        
+        # Update Q-table
+        pi.update(s, a, r, s_next, a_next, done)
+        
+        if done:
+            s = env.reset()
+            a = pi.select_action(s, policy=policy, epsilon=epsilon, temp=temp)
+        else:
+            s = s_next
+            a = a_next
+        
+        if plot and t % eval_interval == 0:
+            env.render(Q_sa=pi.Q_sa, plot_optimal_policy=True, step_pause=0.001)
+
+        if t % eval_interval == 0:
+            # Greedy
+            mean_return = pi.evaluate(eval_env, n_eval_episodes=10, max_episode_length=100)
+            eval_returns.append(mean_return)
+            eval_timesteps.append(t)
+            #print(f"Timestep: {t}, Mean Return: {mean_return}")
 
     return np.array(eval_returns), np.array(eval_timesteps) 
 

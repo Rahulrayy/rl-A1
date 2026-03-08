@@ -74,7 +74,7 @@ def experiment():
     
     #### Assignment 1: Dynamic Programming
     # Execute this assignment in DynamicProgramming.py
-    optimal_episode_return =  83.678
+    optimal_episode_return =  94.90
     # set the optimal return per episode you found in the DP assignment here...I(RAHUL) CHANGED THIS
     
     #### Assignment 2: Effect of exploration

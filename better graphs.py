@@ -24,7 +24,7 @@ EVAL_INTERVAL = 1000
 MAX_EP_LEN = 100
 GAMMA = 1.0
 SMOOTH_WINDOW = 11
-DP_OPTIMUM = 83.678
+DP_OPTIMUM = 94.90
 
 RESULTS_ROOT = 'results'
 PALETTE = plt.rcParams['axes.prop_cycle'].by_key()['color']
